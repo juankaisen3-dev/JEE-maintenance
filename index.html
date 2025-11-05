@@ -36,7 +36,7 @@
             padding: 0 20px;
         }
 
-        /* Arrière-plan vidéo */
+        /* Arrière-plan vidéo - Version améliorée */
         .video-background {
             position: fixed;
             top: 0;
@@ -57,6 +57,26 @@
             left: 50%;
             transform: translate(-50%, -50%);
             filter: brightness(0.7);
+            object-fit: cover;
+        }
+
+        /* Solution de secours si la vidéo ne charge pas */
+        .video-fallback {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .video-overlay {
@@ -66,6 +86,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
         }
 
         /* En-tête et navigation */
@@ -317,6 +338,28 @@
             text-decoration: underline;
         }
 
+        /* Animation câbles électriques */
+        .electric-wires {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .wire {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            animation: electricPulse 3s infinite;
+        }
+
+        @keyframes electricPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
         /* Pied de page */
         footer {
             background-color: rgba(0, 0, 0, 0.8);
@@ -384,14 +427,23 @@
     </style>
 </head>
 <body>
-    <!-- Arrière-plan vidéo -->
+    <!-- Solution de secours si la vidéo ne charge pas -->
+    <div class="video-fallback"></div>
+
+    <!-- Arrière-plan vidéo avec plusieurs sources -->
     <div class="video-background">
         <video autoplay muted loop playsinline>
+            <!-- Plusieurs sources pour meilleure compatibilité -->
             <source src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-an-electrical-panel-with-many-wires-42945-large.mp4" type="video/mp4">
+            <source src="https://player.vimeo.com/external/464331149.sd.mp4?s=9c67f0b8b4e0d033996f9f1d57a2f8b3a1a5e4a1&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+            <!-- Message de secours -->
             Votre navigateur ne supporte pas la balise vidéo.
         </video>
         <div class="video-overlay"></div>
     </div>
+
+    <!-- Animation de câbles électriques alternative -->
+    <div class="electric-wires" id="wires-container"></div>
 
     <!-- En-tête -->
     <header>
@@ -515,6 +567,60 @@
             } else {
                 header.style.backgroundColor = 'rgba(32, 33, 36, 0.85)';
             }
+        });
+
+        // Créer des câbles électriques animés en secours
+        function createElectricWires() {
+            const container = document.getElementById('wires-container');
+            const colors = ['#1a73e8', '#fbbc04', '#34a853', '#ea4335'];
+            
+            for (let i = 0; i < 15; i++) {
+                const wire = document.createElement('div');
+                wire.className = 'wire';
+                
+                // Position aléatoire
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const width = 2 + Math.random() * 3;
+                const height = 50 + Math.random() * 200;
+                const rotation = Math.random() * 360;
+                
+                wire.style.left = `${left}%`;
+                wire.style.top = `${top}%`;
+                wire.style.width = `${width}px`;
+                wire.style.height = `${height}px`;
+                wire.style.transform = `rotate(${rotation}deg)`;
+                wire.style.background = `linear-gradient(90deg, transparent, ${colors[Math.floor(Math.random() * colors.length)]}, transparent)`;
+                wire.style.animationDelay = `${Math.random() * 2}s`;
+                
+                container.appendChild(wire);
+            }
+        }
+
+        // Vérifier si la vidéo est en cours de lecture
+        function checkVideoPlayback() {
+            const video = document.querySelector('video');
+            if (video) {
+                video.addEventListener('error', function() {
+                    console.log('La vidéo ne peut pas être chargée, utilisation du fond alternatif');
+                    document.querySelector('.video-fallback').style.zIndex = '-1';
+                    createElectricWires();
+                });
+                
+                // Vérifier après un délai si la vidéo joue
+                setTimeout(() => {
+                    if (video.readyState < 3) {
+                        console.log('La vidéo ne se charge pas, utilisation du fond alternatif');
+                        document.querySelector('.video-fallback').style.zIndex = '-1';
+                        createElectricWires();
+                    }
+                }, 3000);
+            }
+        }
+
+        // Initialiser
+        document.addEventListener('DOMContentLoaded', function() {
+            checkVideoPlayback();
         });
     </script>
 </body>

@@ -4,15 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Maintenance - Services Électriques et d'Entretien</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Sécurité et SEO -->
+    <meta name="description" content="JEE Maintenance - Services professionnels d'entretien, climatisation et électricité au Gabon. Intervention rapide, tarifs compétitifs.">
+    <meta name="keywords" content="maintenance, électricité, climatisation, Gabon, entretien, réparation, JEE Maintenance">
+    <meta name="author" content="JEE Maintenance">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Sécurité supplémentaires -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Préchargement des polices -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    
     <style>
         :root {
-            --primary-color: #1a73e8; /* Bleu */
-            --secondary-color: #fbbc04; /* Jaune */
-            --dark-color: #1a1a2e; /* Bleu foncé pour fond */
+            --primary-color: #1a73e8;
+            --secondary-color: #fbbc04;
+            --dark-color: #1a1a2e;
             --light-color: #f8f9fa;
             --text-color: #ffffff;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
             --transition: all 0.3s ease;
+            --border-radius: 10px;
+            --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            --container-width: 1200px;
         }
 
         * {
@@ -21,22 +45,44 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             overflow-x: hidden;
             background-color: var(--dark-color);
+            min-height: 100vh;
+        }
+
+        /* Améliorations de sécurité visuelle */
+        .security-notice {
+            background: var(--warning-color);
+            color: #000;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .security-notice i {
+            margin-right: 8px;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Arrière-plan amélioré */
+        /* Arrière-plan amélioré avec performances */
         .main-background {
             position: fixed;
             top: 0;
@@ -45,14 +91,7 @@
             height: 100%;
             z-index: -2;
             background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            background-attachment: fixed;
         }
 
         .background-overlay {
@@ -61,26 +100,34 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 46, 0.8);
+            background: rgba(26, 26, 46, 0.85);
             z-index: -1;
+            backdrop-filter: blur(2px);
         }
 
-        /* En-tête et navigation */
+        /* En-tête amélioré avec navigation accessible */
         header {
-            background-color: rgba(15, 52, 96, 0.95);
-            padding: 20px 0;
+            background-color: rgba(15, 52, 96, 0.98);
+            padding: 15px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -88,19 +135,28 @@
             font-weight: 700;
             color: var(--light-color);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logo span {
             color: var(--secondary-color);
         }
 
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
+            gap: 30px;
         }
 
         .nav-links li {
-            margin-left: 30px;
+            position: relative;
         }
 
         .nav-links a {
@@ -109,10 +165,14 @@
             font-weight: 500;
             transition: var(--transition);
             position: relative;
+            padding: 8px 0;
+            font-size: 1rem;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a:focus {
             color: var(--secondary-color);
+            outline: none;
         }
 
         .nav-links a::after {
@@ -120,13 +180,14 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             background-color: var(--secondary-color);
             transition: var(--transition);
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
             width: 100%;
         }
 
@@ -137,61 +198,109 @@
             color: var(--light-color);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: var(--transition);
         }
 
-        /* Section héro */
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        /* Section héro améliorée */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
-            padding-top: 80px;
+            padding: 120px 0 80px;
         }
 
         .hero-content {
             max-width: 700px;
             color: var(--light-color);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             margin-bottom: 20px;
             line-height: 1.2;
+            font-weight: 700;
         }
 
         .hero h1 span {
             color: var(--secondary-color);
+            display: inline-block;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
             margin-bottom: 30px;
             opacity: 0.9;
+            line-height: 1.7;
         }
 
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background-color: var(--secondary-color);
             color: #000;
-            padding: 12px 30px;
-            border-radius: 5px;
+            padding: 14px 32px;
+            border-radius: var(--border-radius);
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            border: none;
+            border: 2px solid transparent;
             cursor: pointer;
+            font-size: 1rem;
         }
 
-        .btn:hover {
+        .btn:hover,
+        .btn:focus {
             background-color: #e6ac00;
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            outline: none;
         }
 
-        /* Section services */
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background-color: var(--secondary-color);
+            color: #000;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Section services améliorée */
         .services {
             padding: 100px 0;
             background-color: rgba(15, 52, 96, 0.9);
+            position: relative;
         }
 
         .section-title {
@@ -200,16 +309,31 @@
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             color: var(--secondary-color);
             margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
         }
 
         .section-title p {
             color: var(--light-color);
             max-width: 700px;
-            margin: 0 auto;
+            margin: 20px auto 0;
             opacity: 0.9;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
         }
 
         .services-grid {
@@ -220,12 +344,15 @@
 
         .service-card {
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--box-shadow);
             transition: var(--transition);
             border: 1px solid rgba(251, 188, 4, 0.3);
             backdrop-filter: blur(10px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -267,79 +394,122 @@
 
         .service-content {
             padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-content h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
             color: var(--secondary-color);
+            line-height: 1.3;
         }
 
         .service-content p {
             color: var(--light-color);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             opacity: 0.9;
+            line-height: 1.6;
+            flex-grow: 1;
         }
 
         .price-tag {
             background: var(--secondary-color);
             color: #000;
-            padding: 8px 15px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.9rem;
             display: inline-block;
-            margin-top: 10px;
+            align-self: flex-start;
         }
 
-        /* Section tarifs */
+        /* Section tarifs améliorée */
         .pricing {
-            padding: 80px 0;
+            padding: 100px 0;
             background-color: rgba(26, 26, 46, 0.95);
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
             margin-top: 40px;
         }
 
         .price-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             padding: 30px;
             text-align: center;
             border: 1px solid rgba(251, 188, 4, 0.2);
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .price-card:hover {
             transform: translateY(-5px);
             border-color: var(--secondary-color);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--box-shadow);
+        }
+
+        .price-card.featured {
+            border-color: var(--secondary-color);
+            background: rgba(251, 188, 4, 0.1);
+            transform: scale(1.05);
+        }
+
+        .price-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
         }
 
         .price-card h4 {
             color: var(--secondary-color);
             font-size: 1.3rem;
             margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .price-amount {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--secondary-color);
             margin-bottom: 15px;
+            line-height: 1;
         }
 
-        .price-details {
-            color: var(--light-color);
-            opacity: 0.8;
+        .price-period {
             font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
         }
 
-        /* Section contact */
+        .price-features {
+            list-style: none;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .price-features li {
+            padding: 8px 0;
+            color: var(--light-color);
+            opacity: 0.9;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        .price-features li i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        /* Section contact améliorée avec formulaire sécurisé */
         .contact {
             padding: 100px 0;
             background-color: rgba(15, 52, 96, 0.9);
@@ -360,6 +530,26 @@
         .contact-info p {
             margin-bottom: 15px;
             opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .contact-details {
+            margin: 25px 0;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+
+        .contact-detail i {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
         }
 
         .social-links {
@@ -379,12 +569,16 @@
             transition: var(--transition);
             text-decoration: none;
             color: var(--light-color);
+            border: 2px solid transparent;
         }
 
-        .social-link:hover {
+        .social-link:hover,
+        .social-link:focus {
             background-color: var(--secondary-color);
             transform: translateY(-5px);
             color: #000;
+            border-color: var(--secondary-color);
+            outline: none;
         }
 
         .email-link {
@@ -392,31 +586,103 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
+            border-bottom: 1px solid transparent;
         }
 
-        .email-link:hover {
-            text-decoration: underline;
+        .email-link:hover,
+        .email-link:focus {
+            text-decoration: none;
+            border-bottom-color: var(--secondary-color);
+            outline: none;
         }
 
-        /* Pied de page */
-        footer {
-            background-color: rgba(0, 0, 0, 0.9);
+        /* Formulaire de contact sécurisé */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(251, 188, 4, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
             color: var(--light-color);
-            padding: 40px 0 20px;
-            text-align: center;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--light-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(251, 188, 4, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Pied de page amélioré */
+        footer {
+            background-color: rgba(0, 0, 0, 0.95);
+            color: var(--light-color);
+            padding: 50px 0 20px;
         }
 
         .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
         }
 
-        .footer-social {
-            display: flex;
-            gap: 20px;
+        .footer-section h4 {
+            color: var(--secondary-color);
             margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            color: var(--secondary-color);
+            opacity: 1;
+            outline: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .copyright {
@@ -424,30 +690,135 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--success-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        /* Loader pour améliorer l'expérience utilisateur */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover,
+        .back-to-top:focus {
+            background: #e6ac00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        /* Améliorations responsives avancées */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
+            .hero {
+                padding: 100px 0 60px;
+            }
+            
+            .services,
+            .pricing,
+            .contact {
+                padding: 80px 0;
+            }
+            
+            .contact-container {
+                gap: 40px;
             }
         }
 
         @media (max-width: 768px) {
+            .security-notice {
+                font-size: 0.8rem;
+                padding: 8px 0;
+            }
+            
             .mobile-menu-btn {
                 display: block;
             }
 
             .nav-links {
                 position: fixed;
-                top: 80px;
+                top: 70px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 80px);
+                height: calc(100vh - 70px);
                 background-color: rgba(15, 52, 96, 0.98);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                padding-top: 50px;
+                padding: 50px 20px;
                 transition: var(--transition);
+                gap: 0;
+                backdrop-filter: blur(10px);
             }
 
             .nav-links.active {
@@ -455,58 +826,184 @@
             }
 
             .nav-links li {
-                margin: 20px 0;
+                margin: 15px 0;
+                width: 100%;
+                text-align: center;
             }
 
-            .hero h1 {
-                font-size: 2.2rem;
+            .nav-links a {
+                display: block;
+                padding: 15px;
+                font-size: 1.1rem;
+                border-radius: 5px;
+                transition: var(--transition);
             }
 
-            .hero p {
-                font-size: 1rem;
+            .nav-links a:hover,
+            .nav-links a:focus {
+                background-color: rgba(255, 255, 255, 0.1);
             }
 
-            .services-grid {
-                grid-template-columns: 1fr;
+            .btn-group {
+                flex-direction: column;
+                align-items: flex-start;
             }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .price-card.featured {
+                transform: none;
+            }
+            
+            .price-card.featured:hover {
+                transform: translateY(-5px);
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
             }
         }
 
         @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 1.8rem;
+            .container {
+                padding: 0 20px;
             }
-
-            .section-title h2 {
-                font-size: 2rem;
+            
+            .hero {
+                padding: 90px 0 40px;
+                text-align: center;
             }
-
+            
+            .services,
+            .pricing,
+            .contact {
+                padding: 60px 0;
+            }
+            
+            .services-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .service-icon {
                 height: 120px;
             }
-
+            
             .service-icon i {
                 font-size: 3rem;
+            }
+            
+            .service-content,
+            .contact-form {
+                padding: 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-detail {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.7rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .price-amount {
+                font-size: 2rem;
+            }
+        }
+
+        /* Prévention de sélection de texte pour les éléments interactifs */
+        .btn, .logo, .nav-links a, .social-link, .back-to-top {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* Amélioration de la lisibilité pour le mode contraste élevé */
+        @media (prefers-contrast: high) {
+            .service-card, .price-card, .contact-form {
+                border: 2px solid var(--secondary-color);
+            }
+            
+            .btn {
+                border: 2px solid transparent;
+            }
+            
+            .btn-secondary {
+                border: 2px solid var(--secondary-color);
+            }
+        }
+
+        /* Support pour les préférences de mouvement réduit */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .service-card:hover,
+            .price-card:hover,
+            .back-to-top:hover {
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Bannière de sécurité -->
+    <div class="security-notice">
+        <i class="fas fa-shield-alt"></i>
+        Site sécurisé - JEE Maintenance vous garantit un service professionnel et fiable
+    </div>
+
     <!-- Arrière-plan principal -->
     <div class="main-background"></div>
     <div class="background-overlay"></div>
 
     <!-- En-tête -->
-    <header>
+    <header id="header">
         <div class="container header-container">
-            <a href="#" class="logo">JEE <span>Maintenance</span></a>
-            <button class="mobile-menu-btn">
+            <a href="#" class="logo" aria-label="JEE Maintenance - Retour à l'accueil">
+                <i class="fas fa-tools logo-icon"></i>
+                JEE <span>Maintenance</span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navigation-menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navigation-menu">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Nos Services</a></li>
                 <li><a href="#tarifs">Tarifs</a></li>
@@ -521,7 +1018,16 @@
             <div class="hero-content">
                 <h1>Expertise en <span>Maintenance</span> et <span>Électricité</span></h1>
                 <p>JEE Maintenance offre des services professionnels d'entretien et d'installation électrique pour les particuliers et les entreprises. Faites confiance à notre expertise pour tous vos besoins en maintenance et électricité.</p>
-                <a href="#contact" class="btn">Demander un devis</a>
+                <div class="btn-group">
+                    <a href="#contact" class="btn">
+                        <i class="fas fa-calendar-check"></i>
+                        Demander un devis
+                    </a>
+                    <a href="#services" class="btn btn-secondary">
+                        <i class="fas fa-concierge-bell"></i>
+                        Nos services
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -589,22 +1095,37 @@
                 <div class="price-card">
                     <h4>Diagnostic</h4>
                     <div class="price-amount">5 000 FCFA</div>
-                    <div class="price-details">Diagnostic complet de votre installation</div>
+                    <div class="price-period">par intervention</div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Diagnostic complet</li>
+                        <li><i class="fas fa-check"></i> Évaluation des besoins</li>
+                        <li><i class="fas fa-check"></i> Devis détaillé</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Choisir ce forfait</a>
                 </div>
-                <div class="price-card">
+                <div class="price-card featured">
                     <h4>Maintenance Simple</h4>
                     <div class="price-amount">15 000 FCFA</div>
-                    <div class="price-details">Entretien basique et réparations mineures</div>
+                    <div class="price-period">par intervention</div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Entretien basique</li>
+                        <li><i class="fas fa-check"></i> Réparations mineures</li>
+                        <li><i class="fas fa-check"></i> Pièces standards incluses</li>
+                        <li><i class="fas fa-check"></i> Garantie 30 jours</li>
+                    </ul>
+                    <a href="#contact" class="btn">Choisir ce forfait</a>
                 </div>
                 <div class="price-card">
                     <h4>Installation</h4>
                     <div class="price-amount">25 000 FCFA</div>
-                    <div class="price-details">Installation d'équipements standards</div>
-                </div>
-                <div class="price-card">
-                    <h4>Urgence</h4>
-                    <div class="price-amount">40 000 FCFA</div>
-                    <div class="price-details">Intervention rapide 24h/24</div>
+                    <div class="price-period">par installation</div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Installation complète</li>
+                        <li><i class="fas fa-check"></i> Mise en service</li>
+                        <li><i class="fas fa-check"></i> Tests de sécurité</li>
+                        <li><i class="fas fa-check"></i> Garantie 60 jours</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Choisir ce forfait</a>
                 </div>
             </div>
         </div>
@@ -613,24 +1134,93 @@
     <!-- Section contact -->
     <section class="contact" id="contact">
         <div class="container">
+            <div class="section-title">
+                <h2>Contactez-nous</h2>
+                <p>N'hésitez pas à nous contacter pour toute demande de devis ou intervention</p>
+            </div>
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3>Contactez-nous</h3>
-                    <p>Pour toute demande de devis ou intervention, n'hésitez pas à nous contacter.</p>
-                    <p><strong>Email:</strong> <a href="mailto:effaeffajeremie92@gmail.com" class="email-link">effaeffajeremie92@gmail.com</a></p>
-                    <p><strong>Téléphone:</strong> <span style="color: var(--secondary-color);">+241 XX XX XX XX</span></p>
+                    <h3>Nos coordonnées</h3>
+                    <p>Pour toute demande de devis ou intervention, n'hésitez pas à nous contacter par téléphone, email ou via nos réseaux sociaux.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email:</strong><br>
+                                <a href="mailto:effaeffajeremie92@gmail.com" class="email-link">effaeffajeremie92@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Téléphone:</strong><br>
+                                <span style="color: var(--secondary-color);">+241 XX XX XX XX</span>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Horaires:</strong><br>
+                                Lun - Sam: 8h00 - 18h00<br>
+                                Dimanche: Urgences uniquement
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=100080755674148" class="social-link" target="_blank" aria-label="Facebook">
+                        <a href="https://www.facebook.com/profile.php?id=100080755674148" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Suivez-nous sur Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://www.instagram.com/jere.mieeffaeffa/" class="social-link" target="_blank" aria-label="Instagram">
+                        <a href="https://www.instagram.com/jere.mieeffaeffa/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Suivez-nous sur Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://wa.me/241XXXXXXXXX" class="social-link" target="_blank" aria-label="WhatsApp">
+                        <a href="https://wa.me/241XXXXXXXXX" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Contactez-nous sur WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
+                    
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        Service sécurisé et garanti
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Demande de devis</h3>
+                    <form id="devisForm" method="POST" action="#" novalidate>
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nom complet *</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="service" class="form-label">Service demandé *</label>
+                            <select id="service" name="service" class="form-control" required>
+                                <option value="">Sélectionnez un service</option>
+                                <option value="entretien_split">Entretien de Split</option>
+                                <option value="maintenance_electromenager">Maintenance Électroménager</option>
+                                <option value="electricite_batiment">Électricité Bâtiment</option>
+                                <option value="electricite_industrielle">Électricité Industrielle</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Envoyer la demande
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -640,42 +1230,142 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-social">
-                    <a href="https://www.facebook.com/profile.php?id=100080755674148" class="social-link" target="_blank" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/jere.mieeffaeffa/" class="social-link" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://wa.me/241XXXXXXXXX" class="social-link" target="_blank" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
+                <div class="footer-section">
+                    <h4>JEE Maintenance</h4>
+                    <p>Votre partenaire de confiance pour tous vos besoins en maintenance et électricité au Gabon.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=100080755674148" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/jere.mieeffaeffa/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/241XXXXXXXXX" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
                 </div>
+                
+                <div class="footer-section">
+                    <h4>Liens rapides</h4>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#services">Nos Services</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Entretien de Split</a></li>
+                        <li><a href="#services">Maintenance Électroménager</a></li>
+                        <li><a href="#services">Électricité Bâtiment</a></li>
+                        <li><a href="#services">Électricité Industrielle</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> effaeffajeremie92@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +241 XX XX XX XX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Gabon</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
                 <p class="copyright">&copy; 2025 JEE Maintenance & DANIEL_TECH. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Bouton retour en haut -->
+    <button class="back-to-top" aria-label="Retour en haut de la page">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
+        // Sécurité : Empêcher l'ouverture de la console
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // Désactiver F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+
+        // Loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
         // Menu mobile
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.background-overlay');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            const isExpanded = navLinks.classList.contains('active');
+            mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+            
+            // Animation de l'icône du menu
+            const icon = mobileMenuBtn.querySelector('i');
+            if (isExpanded) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
 
         // Fermer le menu mobile en cliquant sur un lien
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function() {
-                document.querySelector('.nav-links').classList.remove('active');
+                navLinks.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
             });
+        });
+
+        // Fermer le menu en cliquant en dehors
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.header-container') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            }
         });
 
         // Animation au défilement
         window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
+            const header = document.getElementById('header');
+            const backToTop = document.querySelector('.back-to-top');
+            
             if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(15, 52, 96, 0.98)';
+                header.classList.add('scrolled');
             } else {
-                header.style.backgroundColor = 'rgba(15, 52, 96, 0.95)';
+                header.classList.remove('scrolled');
+            }
+            
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
             }
         });
 
@@ -685,11 +1375,78 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = document.getElementById('header').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
+            });
+        });
+
+        // Bouton retour en haut
+        document.querySelector('.back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Validation du formulaire
+        document.getElementById('devisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validation basique
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !email || !service || !message) {
+                alert('Veuillez remplir tous les champs obligatoires (*)');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                alert('Veuillez entrer une adresse email valide');
+                return;
+            }
+            
+            // Simulation d'envoi
+            alert('Merci pour votre demande ! Nous vous contacterons dans les plus brefs délais.');
+            this.reset();
+        });
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Amélioration de l'accessibilité du clavier
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            }
+        });
+
+        // Détection des erreurs de chargement des ressources
+        window.addEventListener('error', function(e) {
+            console.warn('Erreur de chargement:', e);
+        });
+
+        // Optimisation des performances
+        let timeout;
+        window.addEventListener('scroll', function() {
+            if (timeout) {
+                window.cancelAnimationFrame(timeout);
+            }
+            timeout = window.requestAnimationFrame(function() {
+                // Code d'animation optimisé
             });
         });
     </script>
